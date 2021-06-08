@@ -1,5 +1,6 @@
 package math;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -7,7 +8,7 @@ import java.util.Scanner;
 public class TriangleSquareImpl implements Area, Perimeter{
 
 	@Override
-	public double square(List<Double> params) {
+	public double square(List<Double> params) throws IOException {
 		
 		double p = (params.get(0) + params.get(1) + params.get(2))/2;
 		
@@ -26,20 +27,28 @@ public class TriangleSquareImpl implements Area, Perimeter{
 
 
 	@Override
-	public void process() {
-		List<Double> paramList = new ArrayList<>();
+	public void process() throws IOException {
 		Scanner sc1 = new Scanner(System.in);
+		boolean flag = true;
+		while (flag) {
+		try {
+		List<Double> paramList = new ArrayList<>();
+		
 
 		System.out.println("Enter the a side of triangle");
-		double aTriangle = sc1.nextDouble();
+		String input = sc1.next();
+		double aTriangle = Double.parseDouble(input);
 		paramList.add(aTriangle);
 
 		System.out.println("Enter the b side of triangle");
-		double bTriangle = sc1.nextDouble();
+		String input2 = sc1.next();
+		double bTriangle = Double.parseDouble(input2);
 		paramList.add(bTriangle);
 
 		System.out.println("Enter the c side of triangle");
-		double cTriangle = sc1.nextDouble();
+		String input3 = sc1.next();
+		double cTriangle = Double.parseDouble(input3);
+		flag = false;
 		paramList.add(cTriangle);
 
 		double resultTriangle = this.square(paramList);
@@ -47,8 +56,20 @@ public class TriangleSquareImpl implements Area, Perimeter{
 
 		System.out.println("Area of triangle = " + resultTriangle);
 		System.out.println("Perimeter of triangle = " + perimeterTriangle);
-		sc1.close();
+		break;
+		}
 		
+		catch(NumberFormatException e) {
+			System.out.println("Catch Exception:" + e.getMessage() + " " + e.toString());
+			System.out.println("Please, enter again (incorrect data entered)");
+			
+		}
+		
+		
+		
+			
+	}
+		sc1.close();
 	}
 
 	 

@@ -1,17 +1,18 @@
 package math;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class CircleSquareImpl implements Area, Perimeter{
 
-	double pi = 3.14;
+	
 	
 	@Override
-	public double square(List<Double> params) {
+	public double square(List<Double> params) throws IOException {
 		
-		double result = pi* Math.pow(params.get(0), 2);
+		double result = Math.PI* Math.pow(params.get(0), 2);
 		
 		return result;
 	}
@@ -19,19 +20,25 @@ public class CircleSquareImpl implements Area, Perimeter{
 	@Override
 	public double getPerimeter(List<Double> params) {
 
-		double circlePerim = 2*pi*params.get(0);
+		double circlePerim = 2*Math.PI*params.get(0);
 		
 		return circlePerim;
 	}
 
 	@Override
-	public void process() {
-		List<Double> paramList = new ArrayList<>();
+	public void process() throws IOException {
 		Scanner sc3 = new Scanner(System.in);
-
+		boolean flag = true;
+		while (flag) {
+		try {
+		List<Double> paramList = new ArrayList<>();
+		
+		
 		System.out.println("Enter the r (radius) of circle");
-		double rCircle = sc3.nextDouble();
-
+		
+		String input = sc3.next();
+		double rCircle = Double.parseDouble(input);
+		flag = false;
 		paramList.add(rCircle);
 		
 		double resultCircle = this.square(paramList);
@@ -39,7 +46,20 @@ public class CircleSquareImpl implements Area, Perimeter{
 		
 		System.out.println("Area of circle = " + resultCircle);
 		System.out.println("Perimeter of circle = " + circlePerim);
-		sc3.close();		
+		break;
+		}
+		catch(NumberFormatException e)
+		{
+			System.out.println("Catch Exception:" + e.getMessage() + " " + e.toString());
+			System.out.println("Please, enter again (incorrect data entered)");
+			//process();
+		}
+		
+		
+				
+		
+		}
+		sc3.close();
 	}
 
 	
